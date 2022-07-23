@@ -1,0 +1,40 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] google_compute_network.vpc (expand)" [label = "google_compute_network.vpc", shape = "box"]
+		"[root] google_compute_subnetwork.subnet (expand)" [label = "google_compute_subnetwork.subnet", shape = "box"]
+		"[root] google_container_cluster.primary (expand)" [label = "google_container_cluster.primary", shape = "box"]
+		"[root] google_container_node_pool.primary_nodes (expand)" [label = "google_container_node_pool.primary_nodes", shape = "box"]
+		"[root] output.kubernetes_cluster_host" [label = "output.kubernetes_cluster_host", shape = "note"]
+		"[root] output.kubernetes_cluster_name" [label = "output.kubernetes_cluster_name", shape = "note"]
+		"[root] output.project_id" [label = "output.project_id", shape = "note"]
+		"[root] output.region" [label = "output.region", shape = "note"]
+		"[root] provider[\"registry.terraform.io/hashicorp/google\"]" [label = "provider[\"registry.terraform.io/hashicorp/google\"]", shape = "diamond"]
+		"[root] var.gke_num_nodes" [label = "var.gke_num_nodes", shape = "note"]
+		"[root] var.gke_password" [label = "var.gke_password", shape = "note"]
+		"[root] var.gke_username" [label = "var.gke_username", shape = "note"]
+		"[root] var.project_id" [label = "var.project_id", shape = "note"]
+		"[root] var.region" [label = "var.region", shape = "note"]
+		"[root] google_compute_network.vpc (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/google\"]"
+		"[root] google_compute_subnetwork.subnet (expand)" -> "[root] google_compute_network.vpc (expand)"
+		"[root] google_container_cluster.primary (expand)" -> "[root] google_compute_subnetwork.subnet (expand)"
+		"[root] google_container_node_pool.primary_nodes (expand)" -> "[root] google_container_cluster.primary (expand)"
+		"[root] google_container_node_pool.primary_nodes (expand)" -> "[root] var.gke_num_nodes"
+		"[root] output.kubernetes_cluster_host" -> "[root] google_container_cluster.primary (expand)"
+		"[root] output.kubernetes_cluster_name" -> "[root] google_container_cluster.primary (expand)"
+		"[root] output.project_id" -> "[root] var.project_id"
+		"[root] output.region" -> "[root] var.region"
+		"[root] provider[\"registry.terraform.io/hashicorp/google\"] (close)" -> "[root] google_container_node_pool.primary_nodes (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/google\"]" -> "[root] var.project_id"
+		"[root] provider[\"registry.terraform.io/hashicorp/google\"]" -> "[root] var.region"
+		"[root] root" -> "[root] output.kubernetes_cluster_host"
+		"[root] root" -> "[root] output.kubernetes_cluster_name"
+		"[root] root" -> "[root] output.project_id"
+		"[root] root" -> "[root] output.region"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/google\"] (close)"
+		"[root] root" -> "[root] var.gke_password"
+		"[root] root" -> "[root] var.gke_username"
+	}
+}
+
